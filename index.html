@@ -1,0 +1,32 @@
+<h1>
+    This is my project.
+</h1>
+<input type = "number" id = "minimum">
+<input type = "number" id = "maximum">
+<button onclick="myFunction()">add</button>
+<span id = "answer-prompt"> </span>
+<span id = "demo"> </span>
+<script>
+    function myFunction() {
+        const params = {
+            "min": document.getElementById("minimum").value,
+            "max": document.getElementById("maximum").value
+        };
+        // console.log(params);
+        fetch("/addInt", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( params ) 
+        })
+        .then(function(response){
+            return response.json()})
+        .then(function(jsonResponse){  
+            document.getElementById("demo").innerHTML = jsonResponse
+            document.getElementById("answer-prompt").innerHTML = "Added number is:"
+        })
+        
+    }
+</script>
